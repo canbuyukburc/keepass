@@ -1,1 +1,11 @@
-https://unix.stackexchange.com/questions/507131/openssl-1-1-1b-warning-using-iter-or-pbkdf2-would-be-better-while-decrypting
+tuz=$(cat ~/.ssh/id_rsa|tr -dc '0-9'|head -c 16)
+#to encrypt 
+openssl enc -aes256 -pbkdf2 -S ${tuz} -in file.txt -out file.aes256 -pass pass:"tttt"
+#to decrypt 
+openssl enc -aes256 -pbkdf2 -S ${tuz} -d -in file.aes256 -out file2.txt -pass pass:"tttt"
+# version discovery
+Version=$(openssl version |awk '{print $2}'|tr -dc '0-9')
+
+## OpenSSL 111
+## echo "${keepasspwd}" |openssl enc -aes256 -pbkdf2 -S ${tuz} -pass pass: > ~/.ssh/salted
+## cat ~/.ssh/salted | openssl enc -aes256 -pbkdf2 -S ${tuz} -d -pass pass:
